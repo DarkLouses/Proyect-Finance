@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\bank;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,10 +14,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bank_user', function (Blueprint $table) {
+        Schema::create('banks', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(bank::class);
+            $table->string('name');
+            $table->integer('account_number');
+            $table->string('account_type');
+            $table->double('balance', 10, 5);
+            $table->foreignIdFor(User::class)->constrained();
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bank_user');
+        Schema::dropIfExists('bank');
     }
 };

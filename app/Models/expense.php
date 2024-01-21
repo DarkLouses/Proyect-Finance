@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class expense extends Model
+class Expense extends Model
 {
     use HasFactory;
 
@@ -15,4 +15,9 @@ class expense extends Model
         "date",
         "bank_id",
     ];
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class);
+    }
 }

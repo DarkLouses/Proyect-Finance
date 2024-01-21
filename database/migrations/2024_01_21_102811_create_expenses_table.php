@@ -14,12 +14,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('revenue', function (Blueprint $table) {
+        Schema::create('expenses', function (Blueprint $table) {
             $table->id();
             $table->string('description');
             $table->double('amount', 10, 5);
             $table->dateTime('date');
-            $table->foreignIdFor(bank::class);
+            $table->foreignIdFor(bank::class)->constrained();
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('revenue');
+        Schema::dropIfExists('expense');
     }
 };
