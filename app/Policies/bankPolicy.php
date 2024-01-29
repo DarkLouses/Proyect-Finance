@@ -51,9 +51,9 @@ class bankPolicy
      * @param  \App\Models\user  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, user $model)
+    public function update(User $user, bank $bank)
     {
-        //
+        return $user->id === $bank->user_id;
     }
 
     /**
@@ -63,9 +63,9 @@ class bankPolicy
      * @param  \App\Models\user  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, user $model)
+    public function delete(User $user, bank $bank)
     {
-        //
+        return $user->id === $bank->user_id;
     }
 
     /**

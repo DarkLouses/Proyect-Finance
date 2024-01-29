@@ -22,7 +22,6 @@ class Bank extends Model
         return $this->belongsTo(User::class);
     }
 
-
     public function incomes()
     {
         return $this->hasMany(Income::class);

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\web\BankController as WebBankController;
+use App\Http\Controllers\web\expenseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', fn () => auth()->check() ? redirect('/home') : view('welcome'));
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('banks', WebBankController::class);
+    Route::resource('expenses', expenseController::class);
 });

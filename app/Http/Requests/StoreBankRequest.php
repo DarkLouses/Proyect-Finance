@@ -13,7 +13,7 @@ class StoreBankRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class StoreBankRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'require',
+            'name' => 'required',
             'account_number' => 'required|numeric',
             'account_type' => 'required',
             'balance' => 'required|numeric',
@@ -34,10 +34,10 @@ class StoreBankRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.require' => 'El nombre de la cuenta es requerido',
-            'account_number.require' => 'El numero de cuenta es requerido',
-            'account_type.require' => 'El tipo de cuenta es requerido',
-            'balance.require' => 'El monto es requerido'
+            'name.required' => 'El nombre de la cuenta es requerido',
+            'account_number.required' => 'El numero de cuenta es requerido',
+            'account_type.required' => 'El tipo de cuenta es requerido',
+            'balance.required' => 'El monto es requerido'
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
-use App\Models\revenue;
+use App\Models\Income;
 use Illuminate\Http\Request;
 
 class IncomeController extends Controller
@@ -34,7 +34,7 @@ class IncomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Income $request)
     {
         //
     }
@@ -45,7 +45,7 @@ class IncomeController extends Controller
      * @param  \App\Models\revenue  $revenue
      * @return \Illuminate\Http\Response
      */
-    public function show(revenue $revenue)
+    public function show(Income $revenue)
     {
         //
     }
@@ -56,7 +56,7 @@ class IncomeController extends Controller
      * @param  \App\Models\revenue  $revenue
      * @return \Illuminate\Http\Response
      */
-    public function edit(revenue $revenue)
+    public function edit(Income $revenue)
     {
         //
     }
@@ -68,7 +68,7 @@ class IncomeController extends Controller
      * @param  \App\Models\revenue  $revenue
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, revenue $revenue)
+    public function update(Request $request, Income $revenue)
     {
         //
     }
@@ -79,7 +79,7 @@ class IncomeController extends Controller
      * @param  \App\Models\revenue  $revenue
      * @return \Illuminate\Http\Response
      */
-    public function destroy(revenue $revenue)
+    public function destroy(Income $revenue)
     {
         //
     }

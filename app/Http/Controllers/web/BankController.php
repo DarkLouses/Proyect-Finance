@@ -7,7 +7,7 @@ use App\Http\Requests\StoreBankRequest;
 use App\Models\Bank;
 use Illuminate\Http\Request;
 
-class bankController extends Controller
+class BankController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class bankController extends Controller
     public function index()
     {
         $bank = auth()->user()->bank;
-        return view('bank.index', compact($bank));
+        return view('bank.index', compact('bank'));
     }
 
     /**
@@ -39,13 +39,13 @@ class bankController extends Controller
     public function store(StoreBankRequest $request)
     {
         $data = $request->validated();
-        auth()->user()->bank->create($data);
+        auth()->user()->banks()->create($data);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\bank  $bank
+     * @param  \App\Models\Bank  $bank
      * @return \Illuminate\Http\Response
      */
     public function show(Bank $bank)
@@ -57,7 +57,7 @@ class bankController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\bank  $bank
+     * @param  \App\Models\Bank  $bank
      * @return \Illuminate\Http\Response
      */
     public function edit(Bank $bank)
@@ -70,28 +70,28 @@ class bankController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\bank  $bank
+     * @param  \App\Models\Bank  $bank
      * @return \Illuminate\Http\Response
      */
     public function update(StoreBankRequest $request, Bank $bank)
     {
         $this->authorize('update', $bank);
-
         $data = $request->validated();
         $bank->update($data);
 
-        return redirect()->route('home');
+        //return redirect()->route('home');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\bank  $bank
+     * @param  \App\Models\Bank  $bank
      * @return \Illuminate\Http\Response
      */
     public function destroy(Bank $bank)
     {
+        $this->authorize('delete', $bank);
         $bank->delete();
-        return redirect()->route('home');
+        //return redirect()->route('home');
     }
 }
