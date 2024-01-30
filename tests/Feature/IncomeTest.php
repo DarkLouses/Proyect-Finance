@@ -2,17 +2,17 @@
 
 namespace Tests\Feature;
 
+use App\Models\Bank;
+use App\Models\Income;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Models\Bank;
-use App\Models\Expense;
-use App\Models\User;
 
-class ExpenseTest extends TestCase
+class IncomeTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testCreateExpenseOfBankInUser()
+    public function testCreateIncomeBankInUser()
     {
         $this->withoutExceptionHandling();
 
@@ -22,15 +22,15 @@ class ExpenseTest extends TestCase
             'user_id' => $user->id
         ]);
 
-        $expense = Expense::factory()->makeOne([
+        $income = Income::factory()->makeOne([
             'bank_id' => $bank->id
         ]);
 
-        $this->actingAs($user)->post(route('expenses.store'), $expense->getAttributes());
-        $this->assertDatabaseCount('expenses', 1);
+        $this->actingAs($user)->post(route('income.store'), $income->getAttributes());
+        $this->assertDatabaseCount('incomes', 1);
     }
 
-    public function testUpdateExpenseOfBankInUser()
+    public function testUpdateIncomeBankInUser()
     {
         $this->withoutExceptionHandling();
 
@@ -40,15 +40,15 @@ class ExpenseTest extends TestCase
             'user_id' => $user->id
         ]);
 
-        $expense = Expense::factory()->createOne([
+        $income = Income::factory()->createOne([
             'bank_id' => $bank->id
         ]);
 
-        $response = $this->actingAs($user)->put(route('expenses.update', $expense->id), $expense->getAttributes());
+        $response = $this->actingAs($user)->put(route('income.update', $income->id), $income->getAttributes());
         $response->assertStatus(200);
     }
 
-    public function testDeleteExpenseOfBankInUser()
+    public function testDeleteIncomeBankInUser()
     {
         $this->withoutExceptionHandling();
 
@@ -58,11 +58,12 @@ class ExpenseTest extends TestCase
             'user_id' => $user->id
         ]);
 
-        $expense = Expense::factory()->createOne([
+
+        $income = Income::factory()->createOne([
             'bank_id' => $bank->id
         ]);
 
-        $response = $this->actingAs($user)->delete(route('expenses.destroy', $expense->id), $expense->getAttributes());
+        $response = $this->actingAs($user)->delete(route('income.destroy', $income->id), $income->getAttributes());
         $response->assertStatus(200);
     }
 }

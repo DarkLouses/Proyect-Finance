@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Bank;
 use App\Models\expense;
 use Illuminate\Http\Request;
 
@@ -36,11 +35,11 @@ class expenseController extends Controller
      */
     public function store(Request $request)
     {
-
-        $data = $request->only('bank_id');
+        $data = $request->all();
+        $bank_id = $data['bank_id'];
         $user = auth()->user();
-        $bank = $user->banks()->findOrFail($data['bank_id']);
-        $expense = new Expense($request->all());
+        $bank = $user->banks()->findOrFail($bank_id);
+        $expense = new Expense($data);
         $bank->expenses()->save($expense);
     }
 
@@ -75,7 +74,9 @@ class expenseController extends Controller
      */
     public function update(Request $request, expense $expense)
     {
-        //
+        $user = auth()->user();
+        $bank = $user->banks()->findOrFail($expense->bank_id);
+        $bank->expenses()->update($request->all());
     }
 
     /**
@@ -86,6 +87,6 @@ class expenseController extends Controller
      */
     public function destroy(expense $expense)
     {
-        //
+        $expense->delete();
     }
 }

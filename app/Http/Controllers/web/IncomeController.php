@@ -34,18 +34,23 @@ class IncomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Income $request)
+    public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $bank_id = $data['bank_id'];
+        $user = auth()->user();
+        $bank = $user->banks()->findOrFail($bank_id);
+        $income = new Income($data);
+        $bank->incomes()->save($income);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\revenue  $revenue
+     * @param  \App\Models\income  $income
      * @return \Illuminate\Http\Response
      */
-    public function show(Income $revenue)
+    public function show(Income $income)
     {
         //
     }
@@ -53,10 +58,10 @@ class IncomeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\revenue  $revenue
+     * @param  \App\Models\income  $income
      * @return \Illuminate\Http\Response
      */
-    public function edit(Income $revenue)
+    public function edit(Income $income)
     {
         //
     }
@@ -65,22 +70,24 @@ class IncomeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\revenue  $revenue
+     * @param  \App\Models\income  $income
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Income $revenue)
+    public function update(Request $request, Income $income)
     {
-        //
+        $user = auth()->user();
+        $bank = $user->banks()->findOrFail($income->bank_id);
+        $bank->incomes()->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\revenue  $revenue
+     * @param  \App\Models\income  $income
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Income $revenue)
+    public function destroy(Income $income)
     {
-        //
+        $income->delete();
     }
 }
