@@ -7,6 +7,7 @@ use Tests\TestCase;
 use App\Models\Bank;
 use App\Models\Expense;
 use App\Models\User;
+use Illuminate\Validation\ValidationException;
 
 class ExpenseTest extends TestCase
 {
@@ -64,5 +65,23 @@ class ExpenseTest extends TestCase
 
         $response = $this->actingAs($user)->delete(route('expenses.destroy', $expense->id), $expense->getAttributes());
         $response->assertStatus(200);
+    }
+    public function testNotStoreAmountInNegative()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+        $bank = Bank::factory()->create(['user_id' => $user->id]);
+
+        $expense = Expense::factory()->makeOne([
+            'bank_id' => $bank->id,
+            'amount' => rand(-1000, -1)
+        ]);
+
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('El monto no puede ser negativo');
+
+        $this->actingAs($user)->post(route('expenses.store'), $expense->getAttributes());
+        $this->assertDatabaseCount('expenses', 0);
     }
 }

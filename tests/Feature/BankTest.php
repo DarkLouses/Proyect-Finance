@@ -52,4 +52,8 @@ class BankTest extends TestCase
         $response = $this->actingAs($user)->delete(route('banks.destroy', $bank->id), $bank->getAttributes());
         $response->assertStatus(200);
     }
+
 }
+
+
+

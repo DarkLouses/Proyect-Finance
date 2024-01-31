@@ -5,38 +5,36 @@ namespace App\Http\Controllers\web;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBankRequest;
 use App\Models\Bank;
-use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class BankController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View|Application
      */
-    public function index()
+    public function index(): Factory|View|Application
     {
         $bank = auth()->user()->bank;
         return view('bank.index', compact('bank'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View|Application
      */
-    public function create()
+    public function create(): Factory|View|Application
     {
         return view('bank.create');
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreBankRequest $request
+     * @return void
      */
-    public function store(StoreBankRequest $request)
+    public function store(StoreBankRequest $request): void
     {
         $data = $request->validated();
         auth()->user()->banks()->create($data);
@@ -45,10 +43,11 @@ class BankController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Bank  $bank
-     * @return \Illuminate\Http\Response
+     * @param Bank $bank
+     * @return Application|Factory|View
+     * @throws AuthorizationException
      */
-    public function show(Bank $bank)
+    public function show(Bank $bank): Factory|View|Application
     {
         $this->authorize('view', $bank);
         return view('bank.show', compact('bank'));
@@ -57,10 +56,11 @@ class BankController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Bank  $bank
-     * @return \Illuminate\Http\Response
+     * @param Bank $bank
+     * @return Application|Factory|View
+     * @throws AuthorizationException
      */
-    public function edit(Bank $bank)
+    public function edit(Bank $bank): View|Factory|Application
     {
         $this->authorize('view', $bank);
         return view('bank.edit', compact('bank'));
@@ -69,11 +69,12 @@ class BankController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Bank  $bank
-     * @return \Illuminate\Http\Response
+     * @param StoreBankRequest $request
+     * @param Bank $bank
+     * @return void
+     * @throws AuthorizationException
      */
-    public function update(StoreBankRequest $request, Bank $bank)
+    public function update(StoreBankRequest $request, Bank $bank): void
     {
         $this->authorize('update', $bank);
         $data = $request->validated();
@@ -85,10 +86,11 @@ class BankController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Bank  $bank
-     * @return \Illuminate\Http\Response
+     * @param Bank $bank
+     * @return void
+     * @throws AuthorizationException
      */
-    public function destroy(Bank $bank)
+    public function destroy(Bank $bank): void
     {
         $this->authorize('delete', $bank);
         $bank->delete();

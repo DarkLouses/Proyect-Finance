@@ -11,7 +11,7 @@ class StoreBankRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,7 +21,7 @@ class StoreBankRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => 'required',
@@ -31,13 +31,13 @@ class StoreBankRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'name.required' => 'El nombre de la cuenta es requerido',
             'account_number.required' => 'El numero de cuenta es requerido',
             'account_type.required' => 'El tipo de cuenta es requerido',
             'balance.required' => 'El monto es requerido'
-        ];
+
     }
 }
