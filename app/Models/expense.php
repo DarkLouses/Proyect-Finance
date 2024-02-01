@@ -16,7 +16,7 @@ class Expense extends Model
         "bank_id",
     ];
 
-    public function bank()
+    public function bank(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Bank::class);
     }

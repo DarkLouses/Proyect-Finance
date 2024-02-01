@@ -22,10 +22,8 @@ class IncomeController extends Controller
     {
         $data = $request->validated();
         $bank_id = $data['bank_id'];
-        $user = auth()->user();
-        $bank = $user->banks()->findOrFail($bank_id);
         $income = new Income($data);
-        $bank->incomes()->save($income);
+        auth()->user()->banks()->findOrFail($bank_id)->incomes()->save($income);
     }
 
     public function show(Income $income)
@@ -48,9 +46,7 @@ class IncomeController extends Controller
     public function update(StoreTransactionsRequest $request, Income $income): void
     {
         $data = $request->validated();
-        $user = auth()->user();
-        $bank = $user->banks()->findOrFail($income->bank_id);
-        $bank->incomes()->update($data);
+        auth()->user()->banks()->findOrFail($income->bank_id)->incomes()->update($data);
     }
 
     public function destroy(Income $income): void

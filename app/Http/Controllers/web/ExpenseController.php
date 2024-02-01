@@ -29,10 +29,8 @@ class ExpenseController extends Controller
     {
         $data = $request->validated();
         $bank_id = $data['bank_id'];
-        $user = auth()->user();
-        $bank = $user->banks()->findOrFail($bank_id);
         $expense = new Expense($data);
-        $bank->expenses()->save($expense);
+        auth()->user()->banks()->findOrFail($bank_id)->expenses()->save($expense);
     }
 
     public function show(expense $expense)
@@ -55,9 +53,7 @@ class ExpenseController extends Controller
     public function update(StoreTransactionsRequest $request, expense $expense) : void
     {
         $data = $request->validated();
-        $user = auth()->user();
-        $bank = $user->banks()->findOrFail($expense->bank_id);
-        $bank->expenses()->update($data);
+        auth()->user()->banks()->findOrFail($expense->bank_id)->expenses()->update($data);
     }
 
     /**

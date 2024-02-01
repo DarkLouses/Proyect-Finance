@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreBankRequest extends FormRequest
+class StoreBankUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,20 +25,16 @@ class StoreBankRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'account_number' => 'required|numeric',
-            'account_type' => 'required',
-            'balance' => 'required|numeric',
+            'user_id' => Rule::unique('banks', 'id')->where('user_id', auth()->id()),
+            'bank_id' => Rule::exists('banks', 'id')->where('user_id', auth()->id())
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => 'El nombre de la cuenta es requerido',
-            'account_number.required' => 'El numero de cuenta es requerido',
-            'account_type.required' => 'El tipo de cuenta es requerido',
-            'balance.required' => 'El monto es requerido'
+            'user_id.unique' => 'No puedes compartir Bancos contigo mismo',
+            'bank_id.exists' => 'Este Banco ya esta compartido con el usuario'
         ];
     }
 }

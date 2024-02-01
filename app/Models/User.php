@@ -43,12 +43,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function banks()
+    public function banks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(bank::class);
     }
 
-    public function banksUsers()
+    public function banksUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Bank::class, 'banks_users');
     }
