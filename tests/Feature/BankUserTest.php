@@ -25,4 +25,31 @@ class BankUserTest extends TestCase
 
         $this->assertDatabaseCount('banks_users', 1);
     }
+
+    public function testUserCantShareYoursBank()
+    {
+        $user1 = User::factory()->create();
+
+        $bank = Bank::factory()->createOne(['user_id' => $user1->id]);
+
+        $this->actingAs($user1)->post(route('bank-user.store'), [
+            'bank_id' => $bank->id,
+            'user_id' => $user1->id,
+        ]);
+
+        $this->assertDatabaseCount('banks_users', 0);
+    }
+
+    public  function testDeleteUserShareBank()
+    {
+
+        $user = User::factory()->hasBanks()->create();
+        $user->banks()->first()->banksUsers()->attach($user->id);
+        $banksUser = $user->banksUsers()->first();
+       // dd($banksUser);
+        $this->actingAs($user)->delete(route('bank-user.destroy',$banksUser->id), $banksUser->getAttributes());
+        $this->assertDatabaseCount('banks_users', 0);
+
+
+    }
 }

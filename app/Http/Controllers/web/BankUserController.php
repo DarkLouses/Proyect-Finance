@@ -35,7 +35,7 @@ class BankUserController extends Controller
      */
     public function destroy(int $id): void
     {
-        $bankUser = DB::selectOne('SELECT * FROM bankuser Where id = ? [$id]');
+        $bankUser = DB::selectOne('SELECT * FROM banks_users WHERE id = ?', [$id]);
         $bank = Bank::findorFail($bankUser->bank_id);
 
         abort_if($bank->user_id !== auth()->id(), 403);
