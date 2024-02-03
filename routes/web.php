@@ -3,6 +3,7 @@
 use App\Http\Controllers\web\BankController as WebBankController;
 use App\Http\Controllers\web\ExpenseController;
 use App\Http\Controllers\web\IncomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', fn () => auth()->check() ? redirect('/home') : view('welcome'));
+
+
+Route::get('/', fn () => auth()->check() ? view('/home') : view('home'));
+Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('banks', WebBankController::class);
