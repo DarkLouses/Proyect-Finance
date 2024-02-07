@@ -5,6 +5,7 @@ use App\Http\Controllers\web\ExpenseController;
 use App\Http\Controllers\web\IncomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\web\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', fn () => auth()->check() ? view('/home') : view('home'));
+Route::get('/', fn () => auth()->check() ? view('/home') : view('auth/login'));
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('banks', WebBankController::class);
     Route::resource('expenses', ExpenseController::class);
     Route::resource('income', IncomeController::class);

@@ -17,25 +17,35 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
+        // Crear un usuario de prueba con tres bancos asociados
+        $testUser = User::factory()->hasBanks(3)->createOne([
+            'email' => 'gabriel@gmail.com',
+            'password' => '$2y$10$jog3zoakKEcN/aYK77EE6Of8ipa9eJMKfdCe3V3Bm0Ii6EdXjaYIm'
+        ]);
+
+        // Para cada banco asociado al usuario de prueba
+        $testUser->banks->each(function ($userBank) {
+            // Sincronizar la relación banksUsers y crear gastos e ingresos
+            //$userBank->banksUsers()->syncWithoutDetaching([$userBank->id]);
+            $userBank->expenses()->saveMany(Expense::factory(2)->make());
+            $userBank->incomes()->saveMany(Income::factory(2)->make());
+        });
+
+        // Crear dos usuarios adicionales con un banco cada uno
         User::factory(2)->create()->each(function ($user) {
             $bank = $user->banks()->save(Bank::factory()->make());
 
-            if (!$bank->banksUsers()->where('user_id', $user->id)->exists()) {
+            // Verificar si el usuario ya está asociado al banco
+           /* if (!$bank->banksUsers()->where('user_id', $user->id)->exists()) {
                 $bank->banksUsers()->attach($user->id);
+            }*/
 
-                // Verificar y adjuntar el banco al usuario (si no está ya adjunto)
-                if (!$user->banksUsers()->where('bank_id', $bank->id)->exists()) {
-                    $user->banksUsers()->attach($bank->id);
-                }
-            }
-
-            $user->banks->each(function ($userBank) {
-                $userBank->banksUsers()->syncWithoutDetaching([$userBank->id]);
-                $userBank->expenses()->saveMany(Expense::factory(2)->make());
-                $userBank->incomes()->saveMany(Income::factory(2)->make());
-            });
+            // Sincronizar la relación banksUsers y crear gastos e ingresos
+           // $bank->banksUsers()->syncWithoutDetaching([$bank->id]);
+            $bank->expenses()->saveMany(Expense::factory(2)->make());
+            $bank->incomes()->saveMany(Income::factory(2)->make());
         });
     }
 }
