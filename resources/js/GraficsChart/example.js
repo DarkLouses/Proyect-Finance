@@ -1,24 +1,24 @@
 import Chart from 'chart.js/auto';
 
-const data = [{x: 'Jan', net: 100, cogs: 50, gm: 50}, {x: 'Feb', net: 120, cogs: 55, gm: 75}];
+const data = [{x: 'Jan', net: 1400, cogs: 500, gm: 600}];
 const cfg = {
     type: 'bar',
     data: {
-        labels: ['Jan', 'Feb'],
+        labels: ['Jan'],
         datasets: [{
-            label: 'Net sales',
+            label: 'Ingresos',
             data: data,
             parsing: {
                 yAxisKey: 'net'
             }
         }, {
-            label: 'Cost of goods sold',
+            label: 'Gastos',
             data: data,
             parsing: {
                 yAxisKey: 'cogs'
             }
         }, {
-            label: 'Gross margin',
+            label: 'Presupuesto',
             data: data,
             parsing: {
                 yAxisKey: 'gm'
@@ -27,7 +27,4 @@ const cfg = {
     },
 };
 
-new Chart(
-    document.getElementById('myChart'),
-    cfg
-);
+new Chart(document.getElementById('myChart'), cfg);

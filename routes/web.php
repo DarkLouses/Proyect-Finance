@@ -17,9 +17,6 @@ use App\Http\Controllers\web\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-
 Route::get('/', fn () => auth()->check() ? view('/home') : view('auth/login'));
 Auth::routes();
 
