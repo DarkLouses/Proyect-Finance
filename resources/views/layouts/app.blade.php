@@ -18,14 +18,14 @@
 
         @vite('resources/css/app.css')
         @vite('resources/js/app.js')
-
     </head>
+
     <body>
         <nav class="bg-white border-b border-gray-200 fixed z-30 w-full">
             <div class="px-3 py-5 lg:px-5 lg:pl-4">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center justify-start">
-                        <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar" class="lg:hidden mr-2 text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded">
+                        <button id="toggleSidebarMobile" class="lg:hidden mr-2 text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded">
                             <i id="toggleSidebarMobileHamburger" class="fa-solid fa-bars"></i>
                             <i id="toggleSidebarMobileClose" class="fa-solid fa-xmark hidden"></i>
                         </button>
@@ -35,27 +35,29 @@
                         </div>
                     </div>
                     <div class="flex items-center relative mr-8">
-                        <span class="block text-sm text-black mr-2.5"> {{ Auth::user()->name }} </span>
-                        <img src="{{ asset(Auth::user()->profile_picture) }}" class="w-12 h-12 rounded-full mr-2.5 border-2" alt="Imagen del usuario">
                         <button id="button-arrow-profile">
-                            <i id="arrow-open" class="fa-solid fa-arrow-down-long cursor-pointer"></i>
-                            <i id="arrow-close" class="fa-solid fa-arrow-up-long cursor-pointer hidden"></i>
+                            <div class="flex items-center">
+                                <span class="hidden md:block text-sm text-black mr-3"> {{ Auth::user()->name }} </span>
+                                <img src="{{ asset(Auth::user()->profile_picture) }}" class="w-12 h-12 rounded-full" alt="Imagen del usuario">
+                            </div>
                         </button>
                         <div id="side-menu-profile" class="absolute -left-8 top-2 mt-14 flex w-48 flex-col rounded-sm border border-stroke bg-white hidden">
                             <ul class="flex flex-col p-7 gap-5 border-b border-stroke px-6 py-7.5">
                                 <li>
                                     <a href="" class="flex text-gray-950 items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base hover:text-sky-950">
-                                        <i class="fa-solid fa-user"></i> Mi perfil </a>
+                                        <i class="fa-solid fa-user"></i> Mi perfil
+                                    </a>
                                 </li>
                                 <li>
                                     <a href="" class="flex text-gray-950 items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base hover:text-sky-950">
-                                        <i class="fa-solid fa-gear"></i> Configuracion </a>
+                                        <i class="fa-solid fa-gear"></i> Configuracion
+                                    </a>
                                 </li>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <li>
                                         <button type="submit" class="flex text-gray-950 items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base hover:text-sky-950">
-                                            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Seccion
+                                            <i class="fa-solid fa-right-from-bracket"></i>Cerrar Seccion
                                         </button>
                                     </li>
                                 </form>
@@ -72,14 +74,38 @@
                     <div class="flex-1 px-3 bg-white divide-y space-y-1">
                         <ul class="space-y-2 pb-2">
                             <li>
-                                <a href="#" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
+                                <button id="toggle-dropdown" type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100">
                                     <i class="fa-solid fa-landmark text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75"></i>
-                                    <span class="ml-3">Cuentas</span> </a>
+                                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Cuenta</span>
+                                    <i id="arrow-drowdown-close" class="fa-solid fa-arrow-up-long hidden"></i>
+                                    <i id="arrow-drowdown-open" class="fa-solid fa-arrow-down-long "></i>
+                                </button>
+                                <ul id="drop-down" class="hidden bg-gray-200">
+                                    <li class="flex items-center">
+                                        <a href="#" class="w-full pl-8 p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100">
+                                            <i class="fa-solid fa-coins text-gray-500"></i>
+                                            <span class="ml-3 flex-1 whitespace-nowrap">Ingresos</span>
+                                        </a>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <a href="#" class="w-full pl-8 p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100">
+                                            <i class="fa-solid fa-money-bill text-gray-500"></i>
+                                            <span class="ml-3 flex-1 whitespace-nowrap">Gastos</span>
+                                        </a>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <a href="#" class="w-full pl-8 p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100">
+                                            <i class="fa-solid fa-file-invoice-dollar text-gray-500"></i>
+                                            <span class="ml-3 flex-1 whitespace-nowrap">Presupuestos</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
-                                <a href="#" target="_blank" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
+                                <a href="#" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
                                     <i class="fa-solid fa-truck text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75"></i>
-                                    <span class="ml-3 flex-1 whitespace-nowrap">Productos</span> </a>
+                                    <span class="ml-3 flex-1 whitespace-nowrap">Productos</span>
+                                </a>
                             </li>
                         </ul>
                         <div class="space-y-2 pt-2"></div>
@@ -88,6 +114,5 @@
             </div>
         </aside>
         @yield('content')
-        <!--<script src="https://demo.themesberg.com/windster/app.bundle.js"></script>-->
     </body>
 </html>

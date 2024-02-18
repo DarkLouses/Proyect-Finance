@@ -15,9 +15,8 @@
                                     <h3 class="text-base font-normal text-gray-500">Balance este mes</h3>
                                 </div>
                                 <div class="flex items-center justify-center flex-auto text-green-800 text-base font-bold ">
-                                    <button class="bg-blue-900 hover:bg-blue-300 text-white font-bold py-2 px-4 rounded mr-2.5">Todos</button>
                                     @forelse ($banks as $bank)
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2.5">{{$bank->name}}</button>
+                                        <!-- <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2.5">{{$bank->name}}</button>!-->
                                     @empty
                                     @endforelse
                                 </div>
@@ -113,7 +112,7 @@
                         <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-bold leading-none text-gray-900">Deudores</h3>
-                                <a href="#" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg inline-flex items-center p-2"> View all </a>
+                                <a href="#" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg inline-flex items-center p-2"> View all</a>
                             </div>
                             <div class="flow-root">
                                 <ul role="list" class="divide-y divide-gray-200">
@@ -124,7 +123,9 @@
                                             </div>
                                             <div class="flex-1 min-w-0">
                                                 <p class="text-sm font-medium text-gray-900 truncate"> Neil Sims </p>
-                                                <p class="text-sm text-gray-500 truncate"><a>Eamail</a></p>
+                                                <p class="text-sm text-gray-500 truncate">
+                                                    <a>Eamail</a>
+                                                </p>
                                             </div>
                                             <div class="inline-flex items-center text-base font-semibold text-gray-900"> $320</div>
                                         </div>

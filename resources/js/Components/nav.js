@@ -5,7 +5,11 @@ document.getElementById('toggleSidebarMobile').addEventListener('click', functio
 });
 
 document.getElementById('button-arrow-profile').addEventListener('click', function () {
-    document.querySelector('#arrow-open').classList.toggle('hidden');
-    document.querySelector('#arrow-close').classList.toggle('hidden');
     document.querySelector('#side-menu-profile').classList.toggle('hidden');
+});
+document.getElementById('toggle-dropdown').addEventListener('click', function () {
+    document.querySelector('#drop-down').classList.toggle('hidden');
+    document.querySelector('#arrow-drowdown-open').classList.toggle('hidden');
+    document.querySelector('#arrow-drowdown-close').classList.toggle('hidden');
+
 });
