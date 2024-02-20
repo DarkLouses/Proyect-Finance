@@ -50,14 +50,14 @@
                                 </li>
                                 <li>
                                     <a href="" class="flex text-gray-950 items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base hover:text-sky-950">
-                                        <i class="fa-solid fa-gear"></i> Configuracion
+                                        <i class="fa-solid fa-gear"></i> Configuración
                                     </a>
                                 </li>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <li>
                                         <button type="submit" class="flex text-gray-950 items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base hover:text-sky-950">
-                                            <i class="fa-solid fa-right-from-bracket"></i>Cerrar Seccion
+                                            <i class="fa-solid fa-right-from-bracket"></i>Cerrar Sección
                                         </button>
                                     </li>
                                 </form>
@@ -77,34 +77,40 @@
                                 <button id="toggle-dropdown" type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100">
                                     <i class="fa-solid fa-landmark text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75"></i>
                                     <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Cuenta</span>
-                                    <i id="arrow-drowdown-close" class="fa-solid fa-arrow-up-long hidden"></i>
-                                    <i id="arrow-drowdown-open" class="fa-solid fa-arrow-down-long "></i>
+                                    <i id="arrow-dropdown-close" class="fa-solid fa-arrow-up-long hidden"></i>
+                                    <i id="arrow-dropdown-open" class="fa-solid fa-arrow-down-long "></i>
                                 </button>
                                 <ul id="drop-down" class="hidden bg-gray-200">
                                     <li class="flex items-center">
-                                        <a href="#" class="w-full pl-8 p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100">
+                                        <a href="{{ route('banks.index') }}" class="w-full pl-8 p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100">
                                             <i class="fa-solid fa-coins text-gray-500"></i>
-                                            <span class="ml-3 flex-1 whitespace-nowrap">Ingresos</span>
+                                            <span class="ml-3 flex-1 whitespace-nowrap">Añadir</span>
                                         </a>
                                     </li>
                                     <li class="flex items-center">
                                         <a href="#" class="w-full pl-8 p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100">
                                             <i class="fa-solid fa-money-bill text-gray-500"></i>
-                                            <span class="ml-3 flex-1 whitespace-nowrap">Gastos</span>
-                                        </a>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <a href="#" class="w-full pl-8 p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100">
-                                            <i class="fa-solid fa-file-invoice-dollar text-gray-500"></i>
-                                            <span class="ml-3 flex-1 whitespace-nowrap">Presupuestos</span>
+                                            <span class="ml-3 flex-1 whitespace-nowrap">Balance</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
-                                    <i class="fa-solid fa-truck text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75"></i>
-                                    <span class="ml-3 flex-1 whitespace-nowrap">Productos</span>
+                                    <i class="fa-solid fa-coins text-gray-500"></i>
+                                    <span class="ml-3 flex-1 whitespace-nowrap">Ingresos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
+                                    <i class="fa-solid fa-money-bill text-gray-500"></i>
+                                    <span class="ml-3 flex-1 whitespace-nowrap">Gastos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
+                                    <i class="fa-solid fa-file-invoice-dollar text-gray-500"></i>
+                                    <span class="ml-3 flex-1 whitespace-nowrap">Presupuestos</span>
                                 </a>
                             </li>
                         </ul>

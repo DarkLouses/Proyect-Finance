@@ -9,7 +9,6 @@ document.getElementById('button-arrow-profile').addEventListener('click', functi
 });
 document.getElementById('toggle-dropdown').addEventListener('click', function () {
     document.querySelector('#drop-down').classList.toggle('hidden');
-    document.querySelector('#arrow-drowdown-open').classList.toggle('hidden');
-    document.querySelector('#arrow-drowdown-close').classList.toggle('hidden');
-
+    document.querySelector('#arrow-dropdown-open').classList.toggle('hidden');
+    document.querySelector('#arrow-dropdown-close').classList.toggle('hidden');
 });

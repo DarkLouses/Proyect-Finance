@@ -122,10 +122,8 @@
                                                 <img class="h-8 w-8 rounded-full" src="https://demo.themesberg.com/windster/images/users/neil-sims.png" alt="Neil image">
                                             </div>
                                             <div class="flex-1 min-w-0">
-                                                <p class="text-sm font-medium text-gray-900 truncate"> Neil Sims </p>
-                                                <p class="text-sm text-gray-500 truncate">
-                                                    <a>Eamail</a>
-                                                </p>
+                                                <p class="text-sm font-medium text-gray-900 truncate">Omar</p>
+                                                <p class="text-sm text-gray-500 truncate">Alquiler</p>
                                             </div>
                                             <div class="inline-flex items-center text-base font-semibold text-gray-900"> $320</div>
                                         </div>
@@ -136,7 +134,10 @@
 
 
                         <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-                            <h3 class="text-xl leading-none font-bold text-gray-900 mb-10">Presupuesto</h3>
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xl font-bold leading-none text-gray-900">Presupuestos</h3>
+                                <a href="#" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg inline-flex items-center p-2"> View all</a>
+                            </div>
                             <div class="block w-full overflow-x-auto">
                                 <table class="items-center w-full bg-transparent border-collapse">
                                     <thead>
@@ -148,14 +149,14 @@
                                     </thead>
                                     <tbody class="divide-y divide-gray-100">
                                         <tr class="text-gray-500">
-                                            <th class="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left"> Organic Search</th>
-                                            <td class="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4"> 5,649</td>
+                                            <th class="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left"> Ropa</th>
+                                            <td class="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4"> 80 €</td>
                                             <td class="border-t-0 px-4 align-middle text-xs whitespace-nowrap p-4">
                                                 <div class="flex items-center">
-                                                    <span class="mr-2 text-xs font-medium">30%</span>
+                                                    <span class="mr-2 text-xs font-medium">80%</span>
                                                     <div class="relative w-full">
                                                         <div class="w-full bg-gray-200 rounded-sm h-2">
-                                                            <div class="bg-cyan-600 h-2 rounded-sm" style="width: 30%"></div>
+                                                            <div class="bg-cyan-600 h-2 rounded-sm" style="width: 80%"></div>
                                                         </div>
                                                     </div>
                                                 </div>

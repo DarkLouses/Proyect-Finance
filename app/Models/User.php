@@ -45,7 +45,7 @@ class User extends Authenticatable
 
     public function banks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(bank::class);
+        return $this->hasMany(Bank::class);
     }
 
     public function banksUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

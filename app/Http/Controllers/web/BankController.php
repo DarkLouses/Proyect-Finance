@@ -17,8 +17,8 @@ class BankController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        $bank = auth()->user()->bank;
-        return view('bank.index', compact('bank'));
+        $banks = auth()->user()->banks;
+        return view('banks.index', compact('banks'));
     }
 
     /**
