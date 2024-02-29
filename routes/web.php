@@ -24,6 +24,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('banks', WebBankController::class);
     Route::resource('expenses', ExpenseController::class);
-    Route::resource('income', IncomeController::class);
+    Route::resource('incomes', IncomeController::class);
     Route::resource('bank-user', \App\Http\Controllers\web\BankUserController::class)->except(['show', 'edit', 'update']);
 });

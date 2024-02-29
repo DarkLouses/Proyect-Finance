@@ -96,13 +96,13 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
+                                <a href="{{ route('incomes.index') }}" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
                                     <i class="fa-solid fa-coins text-gray-500"></i>
                                     <span class="ml-3 flex-1 whitespace-nowrap">Ingresos</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
+                                <a href="{{ route('expenses.index') }}" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
                                     <i class="fa-solid fa-money-bill text-gray-500"></i>
                                     <span class="ml-3 flex-1 whitespace-nowrap">Gastos</span>
                                 </a>

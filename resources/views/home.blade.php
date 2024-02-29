@@ -44,9 +44,9 @@
                                             <table class="min-w-full border-b">
                                                 <thead class="bg-gray-50 ">
                                                     <tr>
-                                                        <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> Descripcion</th>
-                                                        <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> Fecha</th>
-                                                        <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> Monto</th>
+                                                        <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripcion</th>
+                                                        <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
+                                                        <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Monto</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="bg-white overflow-scroll max-h-96">

@@ -10,12 +10,23 @@ use Illuminate\Http\Request;
 class ExpenseController extends Controller
 {
 
-    public function index()
+    public function index(): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
-        //
+        $expenses = collect();
+
+        auth()->user()->banks->each(function ($userBank) use ($expenses) {
+            $userBank->expenses->each(function ($expense) use ($userBank, $expenses) {
+                $expenses->push([
+                    'bank_name' => $userBank->name,
+                    'expense' => $expense,
+                ]);
+            });
+        });
+
+        return view('expenses.index', compact('expenses'));
     }
 
-    public function create(Request $request,  int $bank_id)
+    public function create(Request $request, int $bank_id)
     {
     }
 
@@ -50,7 +61,7 @@ class ExpenseController extends Controller
      * @param expense $expense
      * @return void
      */
-    public function update(StoreTransactionsRequest $request, expense $expense) : void
+    public function update(StoreTransactionsRequest $request, expense $expense): void
     {
         $data = $request->validated();
         auth()->user()->banks()->findOrFail($expense->bank_id)->expenses()->update($data);
@@ -62,7 +73,7 @@ class ExpenseController extends Controller
      * @param expense $expense
      * @return void
      */
-    public function destroy(expense $expense) : void
+    public function destroy(expense $expense): void
     {
         $expense->delete();
     }
