@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="flex overflow-hidden bg-white pt-20">
         <div class="h-screen w-full bg-gray-200 relative overflow-y-auto lg:ml-64">
             <main>
                 <div class="pt-6 px-4">
                     <div class="w-full overflow-auto">
                         <form action="">
-                            <div class="w-full bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 grid grid-cols-2 gap-4">
+                            <div class="w-full bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 grid grid-cols-3 gap-4">
                                 <div class="relative w-80">
                                     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -19,6 +18,16 @@
                                     <input type="search" id="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required/>
                                     <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                                 </div>
+                                <div class="mr-16 overflow-scroll max-w-52 ">
+                                    <label class="flex w-full h-full">
+                                        <select class="p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="todos">Todos</option>
+                                            @foreach($banks as $bank)
+                                                <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </label>
+                                </div>
                                 <div class="flex justify-end">
                                     <div class="relative w-44 ">
                                         <input type="date" id="search" class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required/>
@@ -27,7 +36,7 @@
                                         <input type="date" id="search" class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required/>
                                     </div>
                                     <div class="relative w-16 h-full ml-3 flex justify-center items-center">
-                                        <a href="#" class="flex justify-center items-center w-full h-full bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        <a href="{{ route('expenses.create') }}" class="flex justify-center items-center w-full h-full bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                             <i class="fa-solid fa-plus text-xl"></i>
                                         </a>
                                     </div>
@@ -49,25 +58,34 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white">
-                                    @foreach($expenses as $expense)
+                                    @forelse($expenses as $expense)
                                         <tr class="even:bg-gray-200 odd:bg-gray-10 ">
                                             <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">{{ $expense['bank_name'] }}</td>
-                                            <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">{{ $expense['expense']['description'] }}</td>
-                                            <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">{{ $expense['expense']['amount'] }} $</td>
-                                            <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">{{ $expense['expense']['date'] }}</td>
+                                            <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">{{ $expense['expense']->description }}</td>
+                                            <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">{{ $expense['expense']->amount }} $</td>
+                                            <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">{{ $expense['expense']->date }}</td>
                                             <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                <a href="{{ route('expenses.edit', $expense['expense']['id']) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                                     <i class="fa-solid fa-pen-to-square"></i>
-                                                </button>
+                                                </a>
                                             </td>
                                             <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
+                                                <form action="{{ route('expenses.destroy', $expense['expense']['id']) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="6">Aun no se han agregado gastos</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
