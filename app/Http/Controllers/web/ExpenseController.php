@@ -30,6 +30,22 @@ class ExpenseController extends Controller
         return view('expenses.index', compact('expenses', 'banks'));
     }
 
+    public function filter(): Factory|View|Application
+    {
+        $expenses = collect();
+        $banks = auth()->user()->banks;
+
+        $banks->each(function ($userBank) use ($expenses) {
+            $userBank->expenses->each(function ($expense) use ($userBank, $expenses) {
+                $expenses->push([
+                    'bank_name' => $userBank->name,
+                    'expense' => $expense,
+                ]);
+            });
+        });
+
+        return view('expenses.index', compact('expenses', 'banks'));
+    }
 
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {

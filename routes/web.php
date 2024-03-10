@@ -17,11 +17,11 @@ use App\Http\Controllers\web\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', fn () => auth()->check() ? view('/home') : view('auth/login'));
+Route::get('/', fn () => auth()->check() ? redirect('home') : view('auth/login'));
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('home', [HomeController::class, 'index'])->name('home');
     Route::resource('banks', WebBankController::class);
     Route::resource('expenses', ExpenseController::class);
     Route::resource('incomes', IncomeController::class);

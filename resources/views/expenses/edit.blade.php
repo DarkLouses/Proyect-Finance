@@ -11,7 +11,7 @@
                                 @csrf
                                 @method('PUT')
                                 <section class="flex justify-center flex-col">
-                                    <div class="w-96">
+                                    <div class="w-fit">
                                         <div class="m-auto mt-3">
                                             <label for="description">Banco
                                                 <select name="bank_id" autofocus class="bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">

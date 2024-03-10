@@ -5,41 +5,38 @@
         <div class="h-screen w-full bg-gray-200 relative overflow-y-auto lg:ml-64">
             <main>
                 <div class="pt-6 px-4">
-                    <div class="w-full overflow-auto">
-                        <form action="">
-                            <div class="w-full bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 grid grid-cols-3 gap-4">
-                                <div class="relative w-80">
-                                    <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                        </svg>
-                                    </div>
-                                    <input type="search" id="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required/>
-                                    <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                    <div class="w-full h-full flex justify-end mr-3 mb-3 items-end">
+                        <a href="{{ route('expenses.create') }}" class="h-full bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <i class="fa-solid fa-plus text-xl"></i>
+                        </a>
+                    </div>
+                    <div class="w-full">
+                        <form action="{{ route('expenses.filter') }}" method="GET">
+                            <div class="w-full overflow-auto p-6 bg-white shadow rounded-lg flex m-auto">
+                                <div class="flex justify-start">
+                                    <label for="description">
+                                        <input type="text" name="description" class="mt-1 p-2 border border-gray-400 rounded-md" placeholder="Buscar Gasto">
+                                    </label>
+                                    <label for="date-end" class="ml-2.5">
+                                        <button type="submit" class="bg-blue-500 text-white rounded-md hover:bg-blue-600 mt-1 p-2 pr-4 pl-4 w-full border">Buscar</button>
+                                    </label>
                                 </div>
-                                <div class="mr-16 overflow-scroll max-w-52 ">
-                                    <label class="flex w-full h-full">
-                                        <select class="p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option value="todos">Todos</option>
+                                <div class="flex mt-auto ml-auto">
+                                    <label for="description" class="mt-auto ml-2.5">
+                                        <select name="bank_id" autofocus class="border border-gray-400 bg-white p-3 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500">
                                             @foreach($banks as $bank)
                                                 <option value="{{ $bank->id }}">{{ $bank->name }}</option>
                                             @endforeach
                                         </select>
                                     </label>
                                 </div>
-                                <div class="flex justify-end">
-                                    <div class="relative w-44 ">
-                                        <input type="date" id="search" class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required/>
-                                    </div>
-                                    <div class="relative w-44 ml-3">
-                                        <input type="date" id="search" class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required/>
-                                    </div>
-                                    <div class="relative w-16 h-full ml-3 flex justify-center items-center">
-                                        <a href="{{ route('expenses.create') }}" class="flex justify-center items-center w-full h-full bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            <i class="fa-solid fa-plus text-xl"></i>
-                                        </a>
-                                    </div>
+                                <div class="flex m-auto">
+                                    <label for="date-start" class="mt-auto ml-2.5">
+                                        <input type="date" name="date" class="mt-1 p-2 w-full border border-gray-400 rounded-md" value="{{ date('Y-m-01') }}">
+                                    </label>
+                                    <label for="date-end" class="mt-auto ml-2.5">
+                                        <input type="date" name="date" class="mt-1 p-2 w-full border border-gray-400 rounded-md" value="{{ date('Y-m-t') }}">
+                                    </label>
                                 </div>
                             </div>
                         </form>
@@ -63,7 +60,7 @@
                                             <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">{{ $expense['bank_name'] }}</td>
                                             <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">{{ $expense['expense']->description }}</td>
                                             <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">{{ $expense['expense']->amount }} $</td>
-                                            <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">{{ $expense['expense']->date }}</td>
+                                            <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">{{ \Carbon\Carbon::parse($expense['expense']->date)->format('d-m-Y - H:i:s') }}</td>
                                             <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
                                                 <a href="{{ route('expenses.edit', $expense['expense']['id']) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                                     <i class="fa-solid fa-pen-to-square"></i>
@@ -85,7 +82,6 @@
                                         </tr>
                                     @endforelse
                                 </tbody>
-
                             </table>
                         </div>
                     </div>

@@ -10,7 +10,7 @@
                             <form action="{{ route('expenses.store') }}" method="POST">
                                 @csrf
                                 <section class="flex justify-center flex-col">
-                                    <div class="w-96">
+                                    <div class="w-fit">
                                         <div class="m-auto mt-3">
                                             <label for="description">Banco
                                                 <select name="bank_id" autofocus class="bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
@@ -29,8 +29,8 @@
                                             <label for="amount" class="mr-2">Monto
                                                 <input type="text" name="amount" class="mt-1 p-2 w-full border rounded-md">
                                             </label>
-                                            <label for="date">Fecha
-                                                <input type="date" name="date" class="mt-1 p-2 w-full border rounded-md" value="{{ now()->format('Y-m-d') }}">
+                                            <label for="date-">Fecha
+                                                <input type="datetime-local" name="date" class="mt-1 p-2 w-full border rounded-md" value="{{ now()->format('Y-m-d H:i:s') }}">
                                             </label>
                                         </div>
                                         <div class="mt-6">

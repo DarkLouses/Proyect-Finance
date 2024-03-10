@@ -30,8 +30,7 @@
                             <i id="toggleSidebarMobileClose" class="fa-solid fa-xmark hidden"></i>
                         </button>
                         <div class="text-xl font-bold flex items-center lg:ml-2.5">
-                            <img src="{{ asset('image/Finance-Logo.jpeg') }}" class="w-12 h-12 mr-2.5" alt="Finance Logo">
-                            <span class="self-center whitespace-nowrap">Finance</span>
+                            <a href="{{ route('home') }}" class="self-center whitespace-nowrap">Finance</a>
                         </div>
                     </div>
                     <div class="flex items-center relative mr-8">
