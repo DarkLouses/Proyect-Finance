@@ -9,42 +9,37 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
 {
 
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function index(Request $request): Factory|View|Application
     {
-        $expenses = collect();
         $banks = auth()->user()->banks;
 
-        $banks->each(function ($userBank) use ($expenses) {
-            $userBank->expenses->each(function ($expense) use ($userBank, $expenses) {
-                $expenses->push([
-                    'bank_name' => $userBank->name,
-                    'expense' => $expense,
-                ]);
-            });
-        });
+        $query = Expense::query();
 
-        return view('expenses.index', compact('expenses', 'banks'));
-    }
+        if ($request->filled('date-start') && $request->filled('date-end')) {
+            $query->whereBetween('date', [$request->input('date-start'), $request->input('date-end')]);
+        } elseif ($request->filled('date-start')) {
+            $query->where('date', '>=', $request->input('date-start'));
+        } elseif ($request->filled('date-end')) {
+            $query->where('date', '<=', $request->input('date-end'));
+        }
 
-    public function filter(): Factory|View|Application
-    {
-        $expenses = collect();
-        $banks = auth()->user()->banks;
+        if ($request->has('bank_id') && $request->bank_id > 0) {
+            $query->where('bank_id', $request->bank_id);
+        }
 
-        $banks->each(function ($userBank) use ($expenses) {
-            $userBank->expenses->each(function ($expense) use ($userBank, $expenses) {
-                $expenses->push([
-                    'bank_name' => $userBank->name,
-                    'expense' => $expense,
-                ]);
-            });
-        });
+        if ($request->has('description')) {
+            $query->where('description', 'like', '%' . $request->description . '%');
+        }
 
-        return view('expenses.index', compact('expenses', 'banks'));
+        $query->with('bank');
+        $expenses = $query->whereIn('bank_id', $banks->pluck('id'))->get();
+
+        return view('expenses.index', compact('expenses', 'banks', 'request'));
     }
 
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

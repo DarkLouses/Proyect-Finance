@@ -6,7 +6,13 @@ export default {
         "./resources/**/*.vue",
     ],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                'sans': ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                'serif': ['Georgia', 'Cambria', 'Times New Roman', 'serif'],
+                'mono': ['Courier New', 'monospace']
+            },
+        },
     },
     plugins: [],
 }

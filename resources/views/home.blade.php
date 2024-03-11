@@ -33,9 +33,6 @@
                                 <div>
                                     <h3 class="text-xl font-bold text-gray-900 mb-2">Ultimas transacciones</h3>
                                 </div>
-                                <div class="flex-shrink-0">
-                                    <a href="#" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2">View all</a>
-                                </div>
                             </div>
                             <div class="flex flex-col mt-8">
                                 <div class="overflow-x-auto rounded-lg">
@@ -54,7 +51,7 @@
                                                         <tr class="even:bg-gray-200 odd:bg-gray-10 ">
                                                             <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">{{$transaction->description}}</td>
                                                             <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">{{$transaction->date}}</td>
-                                                            @if ($transaction->type == 'expense')
+                                                            @if ($transaction->type == 'income')
                                                                 <td class="p-4 whitespace-nowrap text-sm font-semibold  text-green-900">{{$transaction->amount}} $</td>
                                                             @else
                                                                 <td class="p-4 whitespace-nowrap text-sm font-semibold  text-red-900">{{$transaction->amount}} $</td>

@@ -1,9 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="w-full h-screen bg-gray-200 pt-20 flex justify-center items-center">
-        <div class="overflow-y-auto lg:ml-64 ">
+    <div class="flex overflow-hidden bg-white pt-20">
+        <div class="h-screen w-full bg-gray-200 relative overflow-y-auto lg:ml-64">
             <main>
+                <div class="pt-6 px-4">
+                    <div class="flex mb-5">
+                        <nav class="flex w-fit px-5 py-3 text-gray-900 border border-gray-200 rounded-lg bg-gray-50" aria-label="Breadcrumb">
+                            <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+                                <li class="inline-flex items-center">
+                                    <a href="{{ route('home') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 ">Inicio</a>
+                                </li>
+                                <i class="fa-solid fa-angle-right"></i>
+                                <li class="inline-flex items-center">
+                                    <a href="{{ route('expenses.index') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 ">Gastos</a>
+                                </li>
+                                <li aria-current="page">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Modificar</span>
+                                    </div>
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
                 <div class="pt-4 px-4">
                     <div class="w-full mt-8 flex justify-center">
                         <div class="w-fit bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2 overflow-x-auto flex justify-center">
