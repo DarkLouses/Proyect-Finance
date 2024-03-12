@@ -25,13 +25,12 @@ class bankPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param User $user
      * @param bank $bank
      * @return Response|bool
      */
-    public function view(User $user, Bank $bank): Response|bool
+    public function view(Bank $bank): Response|bool
     {
-        return $user->id === $bank->user_id;
+        return auth()->user()->id === $bank->user_id;
     }
 
     /**
@@ -40,9 +39,9 @@ class bankPolicy
      * @param User $user
      * @return bool
      */
-    public function create(User $user): bool
+    public function create(User $user, bank $bank): bool
     {
-        return $user->id;
+        return $user->id === $bank->user_id;
     }
 
     /**
@@ -64,9 +63,9 @@ class bankPolicy
      * @param bank $bank
      * @return Response|bool
      */
-    public function delete(User $user, bank $bank): Response|bool
+    public function delete(bank $bank): Response|bool
     {
-        return $user->id === $bank->user_id;
+        return auth()->user()->id == $bank->user_id;
     }
 
     /**

@@ -73,26 +73,10 @@
                     <div class="flex-1 px-3 bg-white divide-y space-y-1">
                         <ul class="space-y-2 pb-2">
                             <li>
-                                <button id="toggle-dropdown" type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100">
-                                    <i class="fa-solid fa-landmark text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75"></i>
-                                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Cuenta</span>
-                                    <i id="arrow-dropdown-close" class="fa-solid fa-arrow-up-long hidden"></i>
-                                    <i id="arrow-dropdown-open" class="fa-solid fa-arrow-down-long "></i>
-                                </button>
-                                <ul id="drop-down" class="hidden bg-gray-200">
-                                    <li class="flex items-center">
-                                        <a href="{{ route('banks.index') }}" class="w-full pl-8 p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100">
-                                            <i class="fa-solid fa-coins text-gray-500"></i>
-                                            <span class="ml-3 flex-1 whitespace-nowrap">Añadir</span>
-                                        </a>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <a href="#" class="w-full pl-8 p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100">
-                                            <i class="fa-solid fa-money-bill text-gray-500"></i>
-                                            <span class="ml-3 flex-1 whitespace-nowrap">Balance</span>
-                                        </a>
-                                    </li>
-                                </ul>
+                                <a href="{{ route('banks.index') }}" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
+                                    <i class="fa-solid fa-landmark text-gray-500"></i>
+                                    <span class="ml-3 flex-1 whitespace-nowrap">Cuentas</span>
+                                </a>
                             </li>
                             <li>
                                 <a href="{{ route('incomes.index') }}" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
