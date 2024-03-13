@@ -59,7 +59,11 @@ class ExpenseController extends Controller
         $data = $request->validated();
         $bank_id = $data['bank_id'];
         $expense = new Expense($data);
-        auth()->user()->banks()->findOrFail($bank_id)->expenses()->save($expense);
+
+        $bank = auth()->user()->banks()->findOrFail($bank_id);
+        $bank->incomes()->save($expense);
+        $bank->balance -= $expense->amount;
+        $bank->save();
 
         return redirect()->route('expenses.index');
     }
@@ -93,7 +97,15 @@ class ExpenseController extends Controller
     public function update(StoreTransactionsRequest $request, expense $expense): RedirectResponse
     {
         $data = $request->validated();
+
+        $originalAmount = $expense->amount;
         $expense->update($data);
+
+        $bank = auth()->user()->banks()->findOrFail($expense->bank_id);
+        if ($originalAmount != $data['amount']) {
+            $bank->balance -= $data['amount'] - $originalAmount;
+            $bank->save();
+        }
         return redirect()->route('expenses.index');
     }
 
@@ -105,7 +117,12 @@ class ExpenseController extends Controller
      */
     public function destroy(expense $expense): RedirectResponse
     {
+        $bank = auth()->user()->banks()->findOrFail($expense->bank_id);
+        $bank->incomes()->save($expense);
+        $bank->balance += $expense->amount;
+        $bank->save();
         $expense->delete();
+
         return redirect()->route('expenses.index');
     }
 }

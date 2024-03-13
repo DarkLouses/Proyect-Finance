@@ -1,10 +1,16 @@
 import Chart from 'chart.js/auto';
 
-const data = [{x: 'Jan', net: 1400, cogs: 500, gm: 600}];
+const total_incomes_month = window.total_incomes_month;
+const total_expenses_month = window.total_expenses_month;
+
+const date = new Date()
+const month = date.toLocaleString('default', {month: 'long'})
+
+const data = [{x: month, net: total_incomes_month, cogs: total_expenses_month, gm: 600}];
 const cfg = {
     type: 'bar',
     data: {
-        labels: ['Jan'],
+        labels: [month],
         datasets: [{
             label: 'Ingresos',
             data: data,
@@ -17,13 +23,7 @@ const cfg = {
             parsing: {
                 yAxisKey: 'cogs'
             }
-        }, {
-            label: 'Presupuesto',
-            data: data,
-            parsing: {
-                yAxisKey: 'gm'
-            }
-        }]
+        }, ]
     },
 };
 

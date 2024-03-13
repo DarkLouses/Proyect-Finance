@@ -1,10 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="flex overflow-hidden bg-white pt-20">
         <div class="bg-gray-900 opacity-50 hidden fixed inset-0 z-10" id="sidebarBackdrop"></div>
-        <div id="main-content" class="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
+        <div id="main-content" class="h-full w-full bg-gray-200 relative overflow-y-auto lg:ml-64">
             <main>
                 <div class="pt-6 px-4">
                     <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
@@ -27,7 +26,6 @@
                             </div>
                             <canvas id="myChart"></canvas>
                         </div>
-
                         <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                             <div class="mb-4 flex items-center justify-between">
                                 <div>
@@ -67,8 +65,6 @@
                             </div>
                         </div>
                     </div>
-
-
                     <div class="mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                         <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                             <div class="flex items-center">
@@ -104,7 +100,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4">
                         <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
                             <div class="flex items-center justify-between mb-4">
@@ -128,8 +123,6 @@
                                 </ul>
                             </div>
                         </div>
-
-
                         <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-bold leading-none text-gray-900">Presupuestos</h3>
@@ -169,3 +162,8 @@
         </div>
     </div>
 @endsection
+
+<script>
+    window.total_incomes_month = @json($total_incomes_month);
+    window.total_expenses_month = @json($total_expenses_month);
+</script>

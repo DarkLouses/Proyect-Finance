@@ -35,7 +35,7 @@
 
                                         <div class="m-auto mt-3">
                                             <label for="name" class="m-auto mt-3">name
-                                                <input type="text" name="name" class="mt-1 p-2 w-full border rounded-md">
+                                                <input type="text" name="name" class="mt-1 p-2 w-full border rounded-md" autofocus>
                                             </label>
                                         </div>
                                         <div class="m-auto mt-6">
@@ -45,7 +45,7 @@
                                         </div>
                                         <div class="grid grid-cols-2 mt-6">
                                             <label for="account_type" class="mr-2">Tipo de cuenta
-                                                <select name="account_type" autofocus class="bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                                <select name="account_type" class="bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                                     <option value="Ahorro">Ahorro</option>
                                                     <option value="Corriente">Corriente</option>
                                                 </select>

@@ -11,34 +11,51 @@ class HomeController extends Controller
 {
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        $total_incomes = 0;
-        $total_expenses = 0;
-        $count_incomes = 0;
-        $count_expenses = 0;
-
         $banks = auth()->user()->banks()->get();
-        $total_balance = $banks->sum('balance');
-
         $userBanksIds = $banks->pluck('id')->toArray();
-        $incomes = Income::whereIn('bank_id', $userBanksIds)->select('id', \DB::raw("DATE_FORMAT(date, '%d/%m/%Y - %H:%i:%s') as date"), 'amount', 'description', \DB::raw("'income' as type"));
-        $expenses = Expense::whereIn('bank_id', $userBanksIds)->select('id', \DB::raw("DATE_FORMAT(date, '%d/%m/%Y - %H:%i:%s') as date"), 'amount', 'description', \DB::raw("'expense' as type"));
-        $transactions = $incomes->unionAll($expenses)->orderBy('date', 'desc')->take(9)->get();
 
-        $startDate = Carbon::now()->startOfWeek();
-        $endDate = Carbon::now()->endOfWeek();
+        $transactions = $this->getTransactions($userBanksIds);
+        $total_balance = $banks->sum('balance');
+        $total_incomes_month = $this->getTotalAmountWithMonth($banks, 'incomes');
+        $total_expenses_month = $this->getTotalAmountWithMonth($banks, 'expenses');
+        $total_incomes = $this->getTotalAmountWithWeek($banks, 'incomes');
+        $total_expenses = $this->getTotalAmountWithWeek($banks, 'expenses');
+        $count_transtation = $this->getTotalCountTransactionWithWeek($banks);
 
-        $banks->each(function ($bank) use ($startDate, $endDate, &$total_incomes, &$total_expenses, &$count_incomes, &$count_expenses) {
-            $incomes = $bank->incomes()->whereBetween('created_at', [$startDate, $endDate])->get();
-            $total_incomes += $incomes->sum('amount');
-            $count_incomes += $incomes->count();
-
-            $expenses = $bank->expenses()->whereBetween('created_at', [$startDate, $endDate])->get();
-            $total_expenses += $expenses->sum('amount');
-            $count_expenses += $expenses->count();
-        });
-        $count_transtation = $count_expenses + $count_incomes;
-
-        return view('/home', compact('banks', 'total_balance', 'total_incomes', 'total_expenses', 'count_transtation', 'transactions'));
+        return view('home', compact('banks', 'total_balance', 'total_incomes', 'total_expenses', 'count_transtation', 'transactions', 'total_expenses_month', 'total_incomes_month'));
     }
 
+    private function getTransactions($userBanksIds)
+    {
+        return Income::whereIn('bank_id', $userBanksIds)->select('id', \DB::raw("DATE_FORMAT(date, '%d/%m/%Y - %H:%i:%s') as date"), 'amount', 'description', \DB::raw("'income' as type"))
+            ->unionAll(Expense::whereIn('bank_id', $userBanksIds)->select('id', \DB::raw("DATE_FORMAT(date, '%d/%m/%Y - %H:%i:%s') as date"), 'amount', 'description', \DB::raw("'expense' as type")))
+            ->orderBy('date', 'desc')->take(9)->get();
+    }
+
+    private function getTotalAmountWithMonth($banks, $type)
+    {
+        $currentMonth = date('m');
+
+        return $banks->reduce(function ($carry, $bank) use ($type, $currentMonth) {
+            return $carry + $bank->$type()->whereMonth('date', $currentMonth)->sum('amount');
+        }, 0);
+    }
+
+    private function getTotalAmountWithWeek($banks, $type)
+    {
+        $weekRange = [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()];
+
+        return $banks->reduce(function ($carry, $bank) use ($type, $weekRange) {
+            return $carry + $bank->$type()->whereBetween('created_at', $weekRange)->sum('amount');
+        }, 0);
+    }
+
+    private function getTotalCountTransactionWithWeek($banks)
+    {
+        $weekRange = [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()];
+
+        return $banks->reduce(function ($carry, $bank) use ($weekRange) {
+            return $carry + $bank->incomes()->whereBetween('created_at', $weekRange)->count() + $bank->expenses()->whereBetween('created_at', $weekRange)->count();
+        }, 0);
+    }
 }

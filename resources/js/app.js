@@ -1,3 +1,3 @@
 import './bootstrap';
 import  './Components/nav';
-import  './GraficsChart/example';
+import  './GraficsChart/bar_balance';

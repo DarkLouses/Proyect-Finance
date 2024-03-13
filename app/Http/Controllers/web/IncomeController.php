@@ -5,7 +5,6 @@ namespace App\Http\Controllers\web;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTransactionsRequest;
 use App\Models\Income;
-use Carbon\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -50,7 +49,12 @@ class IncomeController extends Controller
         $data = $request->validated();
         $bank_id = $data['bank_id'];
         $income = new Income($data);
-        auth()->user()->banks()->findOrFail($bank_id)->incomes()->save($income);
+
+        $bank = auth()->user()->banks()->findOrFail($bank_id);
+        $bank->incomes()->save($income);
+
+        $bank->balance += $income->amount;
+        $bank->save();
 
         return redirect()->route('incomes.index');
     }
@@ -76,13 +80,27 @@ class IncomeController extends Controller
     public function update(StoreTransactionsRequest $request, Income $income): RedirectResponse
     {
         $data = $request->validated();
+        $originalAmount = $income->amount;
+        
         $income->update($data);
+
+        $bank = auth()->user()->banks()->findOrFail($income->bank_id);
+        if ($originalAmount != $data['amount']) {
+            $bank->balance += $data['amount'] - $originalAmount;
+            $bank->save();
+        }
+
         return redirect()->route('incomes.index');
     }
 
     public function destroy(Income $income): RedirectResponse
     {
         $income->delete();
+
+        $bank = auth()->user()->banks()->findOrFail($income->bank_id);
+        $bank->balance -= $income->amount;
+        $bank->save();
         return redirect()->route('incomes.index');
     }
+
 }
