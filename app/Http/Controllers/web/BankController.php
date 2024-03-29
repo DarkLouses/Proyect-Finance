@@ -15,6 +15,7 @@ use Illuminate\Http\RedirectResponse;
 class BankController extends Controller
 {
     /**
+     * @param Request $request
      * @return Factory|View|Application
      */
     public function index(Request $request): Factory|View|Application
@@ -68,7 +69,6 @@ class BankController extends Controller
      *
      * @param Bank $bank
      * @return Application|Factory|View
-     * @throws AuthorizationException
      */
     public function edit(Bank $bank): View|Factory|Application
     {
@@ -81,13 +81,12 @@ class BankController extends Controller
      * @param StoreBankRequest $request
      * @param Bank $bank
      * @return RedirectResponse
-     * @throws AuthorizationException
      */
     public function update(StoreBankRequest $request, Bank $bank): RedirectResponse
     {
-        //$this->authorize('update', $bank);
         $data = $request->validated();
         $bank->update($data);
+
         return redirect()->route('banks.index');
     }
 

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -48,8 +47,13 @@ class User extends Authenticatable
         return $this->hasMany(Bank::class);
     }
 
-    public function banksUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function debtors(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsToMany(Bank::class, 'banks_users');
+        return $this->hasMany(Debtors::class);
+    }
+
+    public function budgets(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Budgets::class);
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\web\BankController as WebBankController;
 use App\Http\Controllers\web\ExpenseController;
 use App\Http\Controllers\web\IncomeController;
+use App\Http\Controllers\web\DebtorsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\web\HomeController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\web\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', fn () => auth()->check() ? redirect('home') : view('auth/login'));
 Auth::routes();
 
@@ -25,5 +27,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('banks', WebBankController::class);
     Route::resource('expenses', ExpenseController::class);
     Route::resource('incomes', IncomeController::class);
-    Route::resource('bank-user', \App\Http\Controllers\web\BankUserController::class)->except(['show', 'edit', 'update']);
+    Route::resource('debtors', DebtorsController::class);
 });

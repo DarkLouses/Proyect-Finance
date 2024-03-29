@@ -34,9 +34,4 @@ class Bank extends Model
     {
         return $this->hasMany(Expense::class);
     }
-
-    public function banksUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(User::class, 'banks_users');
-    }
 }

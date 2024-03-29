@@ -92,8 +92,14 @@
                             </li>
                             <li>
                                 <a href="#" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
-                                    <i class="fa-solid fa-file-invoice-dollar text-gray-500"></i>
+                                    <i class="fa-solid fa-wallet text-gray-500"></i>
                                     <span class="ml-3 flex-1 whitespace-nowrap">Presupuestos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('debtors.index') }}" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
+                                    <i class="fa-solid fa-hand-holding-dollar text-gray-500"></i>
+                                    <span class="ml-3 flex-1 whitespace-nowrap">Deudores</span>
                                 </a>
                             </li>
                         </ul>

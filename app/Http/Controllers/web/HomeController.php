@@ -6,9 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Expense;
 use App\Models\Income;
 use Carbon\Carbon;
+use LaravelIdea\Helper\App\Models\_IH_Income_C;
 
 class HomeController extends Controller
 {
+    /*
+    * @return Factory|View|Application
+    */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $banks = auth()->user()->banks()->get();
@@ -25,6 +29,7 @@ class HomeController extends Controller
         return view('home', compact('banks', 'total_balance', 'total_incomes', 'total_expenses', 'count_transtation', 'transactions', 'total_expenses_month', 'total_incomes_month'));
     }
 
+
     private function getTransactions($userBanksIds)
     {
         return Income::whereIn('bank_id', $userBanksIds)->select('id', \DB::raw("DATE_FORMAT(date, '%d/%m/%Y - %H:%i:%s') as date"), 'amount', 'description', \DB::raw("'income' as type"))
@@ -32,6 +37,11 @@ class HomeController extends Controller
             ->orderBy('date', 'desc')->take(9)->get();
     }
 
+    /**
+     * @param $banks
+     * @param $type
+     * @return int
+     */
     private function getTotalAmountWithMonth($banks, $type)
     {
         $currentMonth = date('m');
@@ -41,6 +51,11 @@ class HomeController extends Controller
         }, 0);
     }
 
+    /**
+     * @param $banks
+     * @param $type
+     * @return int
+     */
     private function getTotalAmountWithWeek($banks, $type)
     {
         $weekRange = [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()];
@@ -50,6 +65,10 @@ class HomeController extends Controller
         }, 0);
     }
 
+    /**
+     * @param $banks
+     * @return int
+     */
     private function getTotalCountTransactionWithWeek($banks)
     {
         $weekRange = [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()];
