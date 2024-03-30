@@ -39,13 +39,16 @@
                                                     <tr>
                                                         <th scope="col"
                                                             class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                            Descripcion</th>
+                                                            Descripcion
+                                                        </th>
                                                         <th scope="col"
                                                             class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                            Fecha</th>
+                                                            Fecha
+                                                        </th>
                                                         <th scope="col"
                                                             class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                            Monto</th>
+                                                            Monto
+                                                        </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="bg-white overflow-scroll max-h-96">
@@ -60,11 +63,13 @@
                                                             @if ($transaction->type == 'income')
                                                                 <td
                                                                     class="p-4 whitespace-nowrap text-sm font-semibold  text-green-900">
-                                                                    {{ $transaction->amount }} $</td>
+                                                                    {{ $transaction->amount }} $
+                                                                </td>
                                                             @else
                                                                 <td
                                                                     class="p-4 whitespace-nowrap text-sm font-semibold  text-red-900">
-                                                                    {{ $transaction->amount }} $</td>
+                                                                    {{ $transaction->amount }} $
+                                                                </td>
                                                             @endif
                                                         </tr>
                                                     @empty
@@ -112,72 +117,66 @@
                         <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-bold leading-none text-gray-900">Deudores</h3>
-                                <a href="#"
-                                    class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg inline-flex items-center p-2">
-                                    View all</a>
+                                <a href="{{ route('debtors.index') }}" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg inline-flex items-center p-2"> View all</a>
                             </div>
                             <div class="flow-root">
                                 <ul role="list" class="divide-y divide-gray-200">
-                                    <li class="py-3 sm:py-4">
-                                        <div class="flex items-center space-x-4">
-                                            <div class="flex-shrink-0">
-                                                <img class="h-8 w-8 rounded-full"
-                                                    src="https://demo.themesberg.com/windster/images/users/neil-sims.png"
-                                                    alt="Neil image">
+                                    @forelse ($debtors as $debtor)
+                                        <li class="py-3 sm:py-4">
+                                            <div class="flex items-center space-x-4">
+                                                <div class="flex-shrink-0">
+                                                    <img class="h-8 w-8 rounded-full" src="{{ Storage::url($debtor->profile_picture) }}" alt="{{ $debtor->name }}">
+                                                </div>
+                                                <div class="flex-1 min-w-0">
+                                                    <p class="text-sm font-medium text-gray-900 truncate">{{ $debtor->name }}</p>
+                                                    <p class="text-sm text-gray-500 truncate">{{ $debtor->status }}</p>
+                                                </div>
+                                                <div class="inline-flex items-center text-base font-semibold text-gray-900">{{ $debtor->amount  }} $</div>
                                             </div>
-                                            <div class="flex-1 min-w-0">
-                                                <p class="text-sm font-medium text-gray-900 truncate">Omar</p>
-                                                <p class="text-sm text-gray-500 truncate">Alquiler</p>
-                                            </div>
-                                            <div class="inline-flex items-center text-base font-semibold text-gray-900">
-                                                $320</div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    @empty
+                                        <li class="py-3 sm:py-4">
+                                            <p>No Tienes deudores</p>
+                                        </li>
+                                    @endforelse
                                 </ul>
                             </div>
                         </div>
                         <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-bold leading-none text-gray-900">Presupuestos</h3>
-                                <a href="#"
-                                    class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg inline-flex items-center p-2">
-                                    View all</a>
+                                <a href="{{ route('budgets.index') }}" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg inline-flex items-center p-2"> View all</a>
                             </div>
                             <div class="block w-full overflow-x-auto">
                                 <table class="items-center w-full bg-transparent border-collapse">
                                     <thead>
                                         <tr>
-                                            <th
-                                                class="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left border-l-0 border-r-0 whitespace-nowrap">
-                                                Categorias</th>
-                                            <th
-                                                class="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left border-l-0 border-r-0 whitespace-nowrap">
-                                                Gastado</th>
-                                            <th
-                                                class="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left border-l-0 border-r-0 whitespace-nowrap min-w-140-px">
-                                            </th>
+                                            <th class="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left border-l-0 border-r-0 whitespace-nowrap"> Categorias</th>
+                                            <th class="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left border-l-0 border-r-0 whitespace-nowrap"> Gastado</th>
+                                            <th class="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left border-l-0 border-r-0 whitespace-nowrap min-w-140-px"></th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-gray-100">
-                                        <tr class="text-gray-500">
-                                            <th
-                                                class="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">
-                                                Ropa</th>
-                                            <td
-                                                class="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4">
-                                                80 €</td>
-                                            <td class="border-t-0 px-4 align-middle text-xs whitespace-nowrap p-4">
-                                                <div class="flex items-center">
-                                                    <span class="mr-2 text-xs font-medium">80%</span>
-                                                    <div class="relative w-full">
-                                                        <div class="w-full bg-gray-200 rounded-sm h-2">
-                                                            <div class="bg-cyan-600 h-2 rounded-sm" style="width: 80%">
+                                        @forelse ($butgets as $butget)
+                                            <tr class="text-gray-500">
+                                                <th class="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">{{ $butget->name }}</th>
+                                                <td class="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4"> 80 €</td>
+                                                <td class="border-t-0 px-4 align-middle text-xs whitespace-nowrap p-4">
+                                                    <div class="flex items-center">
+                                                        <span class="mr-2 text-xs font-medium">80%</span>
+                                                        <div class="relative w-full">
+                                                            <div class="w-full bg-gray-200 rounded-sm h-2">
+                                                                <div class="bg-cyan-600 h-2 rounded-sm" style="width: 80%"></div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr class="text-gray-500">
+                                                <td colspan="3" class="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4"> No tienes presupuesto</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

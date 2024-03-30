@@ -91,7 +91,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
+                                <a href="{{ route('budgets.index') }}" class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
                                     <i class="fa-solid fa-wallet text-gray-500"></i>
                                     <span class="ml-3 flex-1 whitespace-nowrap">Presupuestos</span>
                                 </a>

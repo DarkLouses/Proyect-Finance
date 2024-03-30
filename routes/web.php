@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\web\BankController as WebBankController;
+use App\Http\Controllers\web\BankController;
+use App\Http\Controllers\web\BudgetController;
 use App\Http\Controllers\web\ExpenseController;
 use App\Http\Controllers\web\IncomeController;
-use App\Http\Controllers\web\DebtorsController;
+use App\Http\Controllers\web\DebtorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\web\HomeController;
@@ -24,8 +25,9 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
-    Route::resource('banks', WebBankController::class);
+    Route::resource('banks', BankController::class);
     Route::resource('expenses', ExpenseController::class);
     Route::resource('incomes', IncomeController::class);
-    Route::resource('debtors', DebtorsController::class);
+    Route::resource('debtors', DebtorController::class);
+    Route::resource('budgets', BudgetController::class);
 });

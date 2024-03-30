@@ -16,6 +16,9 @@ class HomeController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $banks = auth()->user()->banks()->get();
+        $butgets = auth()->user()->budgets()->get();
+        $debtors = auth()->user()->debtors()->get();
+
         $userBanksIds = $banks->pluck('id')->toArray();
 
         $transactions = $this->getTransactions($userBanksIds);
@@ -26,7 +29,7 @@ class HomeController extends Controller
         $total_expenses = $this->getTotalAmountWithWeek($banks, 'expenses');
         $count_transtation = $this->getTotalCountTransactionWithWeek($banks);
 
-        return view('home', compact('banks', 'total_balance', 'total_incomes', 'total_expenses', 'count_transtation', 'transactions', 'total_expenses_month', 'total_incomes_month'));
+        return view('home', compact('banks', 'debtors', 'butgets', 'total_balance', 'total_incomes', 'total_expenses', 'count_transtation', 'transactions', 'total_expenses_month', 'total_incomes_month'));
     }
 
 

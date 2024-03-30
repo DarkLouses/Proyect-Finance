@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\bank;
+use App\Models\Bank;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('description');
             $table->double('amount', 10, 5);
             $table->dateTime('date');
-            $table->foreignIdFor(bank::class)->constrained();
+            $table->foreignIdFor(Bank::class)->constrained();
             $table->timestamps();
         });
     }

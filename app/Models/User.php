@@ -49,11 +49,11 @@ class User extends Authenticatable
 
     public function debtors(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Debtors::class);
+        return $this->hasMany(Debtor::class);
     }
 
     public function budgets(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Budgets::class);
+        return $this->hasMany(Budget::class);
     }
 }
