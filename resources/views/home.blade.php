@@ -15,12 +15,6 @@
                                         $</span>
                                     <h3 class="text-base font-normal text-gray-500">Balance este mes</h3>
                                 </div>
-                                <div class="flex items-center justify-center flex-auto text-green-800 text-base font-bold ">
-                                    @forelse ($banks as $bank)
-                                        <!-- <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2.5">{{ $bank->name }}</button>!-->
-                                    @empty
-                                    @endforelse
-                                </div>
                             </div>
                             <canvas id="myChart"></canvas>
                         </div>
@@ -142,7 +136,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                        <div class="bg-white shadow rounded-lg p-6 sm:p-12 xl:p-8">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-bold leading-none text-gray-900">Presupuestos</h3>
                                 <a href="{{ route('budgets.index') }}" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg inline-flex items-center p-2"> View all</a>

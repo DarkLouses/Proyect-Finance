@@ -20,7 +20,6 @@ class HomeController extends Controller
         $debtors = auth()->user()->debtors()->get();
 
         $userBanksIds = $banks->pluck('id')->toArray();
-
         $transactions = $this->getTransactions($userBanksIds);
         $total_balance = $banks->sum('balance');
         $total_incomes_month = $this->getTotalAmountWithMonth($banks, 'incomes');

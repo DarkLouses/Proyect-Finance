@@ -8,6 +8,7 @@ use App\Http\Controllers\web\DebtorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\web\HomeController;
+use App\Http\Controllers\Auth\EditController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('incomes', IncomeController::class);
     Route::resource('debtors', DebtorController::class);
     Route::resource('budgets', BudgetController::class);
+    Route::resource('auth', EditController::class)->only(['edit', 'update']);
 });

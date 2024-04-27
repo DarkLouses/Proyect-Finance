@@ -37,18 +37,13 @@
                         <button id="button-arrow-profile">
                             <div class="flex items-center">
                                 <span class="hidden md:block text-sm text-black mr-3"> {{ Auth::user()->name }} </span>
-                                <img src="{{ asset(Auth::user()->profile_picture) }}" class="w-12 h-12 rounded-full" alt="Imagen del usuario">
+                                <img src="{{ Storage::url(auth()->user()->profile_picture) ?? asset(Auth::user()->profile_picture) }}" class="w-12 h-12 rounded-full" alt="Imagen del usuario">
                             </div>
                         </button>
                         <div id="side-menu-profile" class="absolute -left-8 top-2 mt-14 flex w-48 flex-col rounded-sm border border-stroke bg-white hidden">
                             <ul class="flex flex-col p-7 gap-5 border-b border-stroke px-6 py-7.5">
                                 <li>
-                                    <a href="" class="flex text-gray-950 items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base hover:text-sky-950">
-                                        <i class="fa-solid fa-user"></i> Mi perfil
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" class="flex text-gray-950 items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base hover:text-sky-950">
+                                    <a href="{{ route('auth.edit', auth()->id()) }}" class="flex text-gray-950 items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base hover:text-sky-950">
                                         <i class="fa-solid fa-gear"></i> Configuración
                                     </a>
                                 </li>
