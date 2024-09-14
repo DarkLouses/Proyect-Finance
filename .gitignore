@@ -15,3 +15,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/System Volume Information/IndexerVolumeGuid
+/System Volume Information/WPSettings.dat
